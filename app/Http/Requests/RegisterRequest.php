@@ -2,7 +2,13 @@
 
 namespace App\Http\Requests;
 
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
+use App\Helpers\Helper;
+use App\Models\User;
 
 class RegisterRequest extends FormRequest
 {
@@ -13,7 +19,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +31,20 @@ class RegisterRequest extends FormRequest
     {
         return [
             //
+                'name' => 'required|string|between:2,50',
+                'email' => 'required|string|email|unique:users',
+                'password' => 'required|confirmed|min:8',
+        
         ];
     }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(Helper::responseErrorAPI(
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            User::ERR_INPUT_INVALID,
+            $validator->errors()
+        ));
+    }
+    
 }
