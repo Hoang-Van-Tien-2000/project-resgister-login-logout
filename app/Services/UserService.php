@@ -12,4 +12,15 @@ class UserService
     {
         $this->userRepository = $userRepository;
     }
+    
+    public function registerUser($data)
+    {
+        $data = array_merge($data, ['password' => bcrypt($data['password'])]);
+        return $this->userRepository->register($data);
+    }
+    
+    public function getUserVerify($id)
+    {
+        return $this->userRepository->getUserVerify($id);
+    }
 }
