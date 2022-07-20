@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
@@ -12,4 +13,9 @@ class UserService
     {
         $this->userRepository = $userRepository;
     }
+    
+    public function loginUser($data)
+    {
+        return $this->userRepository->login($data);
+    }    
 }

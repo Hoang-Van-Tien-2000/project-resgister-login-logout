@@ -10,8 +10,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
-
+    use HasFactory, Notifiable;    
+    
+    const ERR_LOGIN_FAILED = 'E1008'; 
+    const ERR_INTERNAL_SERVER_ERROR = 'E1022';
+    const ERR_INPUT_INVALID = 'E1026';          
+    const ERR_EMAIL_ALREADY_VERIFIED = 'E1027';         
     /**
      * The attributes that are mass assignable.
      *
@@ -38,8 +42,7 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-    /**
+     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
