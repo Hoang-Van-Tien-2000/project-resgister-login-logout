@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Models\User;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserRepository extends BaseRepository
 {
