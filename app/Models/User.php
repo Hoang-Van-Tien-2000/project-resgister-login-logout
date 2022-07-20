@@ -12,6 +12,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
+    const ERR_INTERNAL_SERVER_ERROR = 'E1022';          
     /**
      * The attributes that are mass assignable.
      *
